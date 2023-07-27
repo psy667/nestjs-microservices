@@ -28,6 +28,18 @@ services:
       - ./apps/auth/.env
     depends_on:
         - mongo
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:debug payments
+    ports:
+      - '3003:3003'
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - ./apps/payments/.env
   mongo:
     image: mongo:6-jammy
     ports:
